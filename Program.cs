@@ -26,7 +26,8 @@ namespace WebScraper
         }
         static void Main(string[] args)
         {
-            
+            var txt = new StringBuilder();
+            txt.Append("EMAG" + System.Environment.NewLine);
             DiscordWebhookClient ScrappyBot = new DiscordWebhookClient("https://discord.com/api/webhooks/826908590991474710/Q2wKMWry407JmnUyrT1wqZUkH7Enk1OS_bpnzoNqNB6nikime1CyRcEMhetPDWg_W_5x");
             using (var driver = new ChromeDriver())
                 {
@@ -34,21 +35,16 @@ namespace WebScraper
                 
                     var itemName = driver.FindElementsByClassName("product-title-zone");
                     var priceValue = driver.FindElementsByClassName("product-new-price");
-
-                    
-                List<String> itemNames = new List<String>(priceValue.Count);
-                List<String> prices = new List<String>(priceValue.Count);
+      
                 for (int i = 0; i < priceValue.Count; i++)
                     {
-                    itemNames.Add(Modify(priceValue[i].GetAttribute("innerText").ToString()));
-                    prices.Add(itemName[i].GetAttribute("innerText").ToString());
-                    
+                    txt.Append(Modify(priceValue[i].GetAttribute("innerText").ToString()) + " " + itemName[i].GetAttribute("innerText").ToString() + System.Environment.NewLine);
                     }
-                    ScrappyBot.SendMessageAsync();
+               
             }
-            
 
-           
+            ScrappyBot.SendMessageAsync(txt.ToString());
+
         }
 
         
