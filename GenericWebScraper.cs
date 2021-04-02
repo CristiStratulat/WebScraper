@@ -29,6 +29,7 @@ namespace WebScrapper
                 else
                     builder.Append(itemPrices[i].GetAttribute("innerText").ToString()+" "+itemNames[i].GetAttribute("innerText").ToString()+System.Environment.NewLine);
             }
+            driver.Quit();
             return builder.ToString();
         }
         private static string Modify(string x)
